@@ -1,35 +1,16 @@
-local module = {
---[=[
-    _NAME        = 'mjolnir._asm.pathwatcher',
-    _VERSION     = 'the 1st digit of Pi/0',
-    _URL         = 'https://github.com/asmagill/mjolnir_asm.pathwatcher',
-    _LICENSE     = [[ See README.md ]]
-    _DESCRIPTION = [[
-    
 --- === mjolnir._asm.pathwatcher ===
 ---
---- Home: https://github.com/asmagill/mjolnir_asm.pathwatcher
+--- Home: https://github.com/asmagill/mjolnir_asm.watcher
 ---
 --- Watch paths recursively for changes.
 ---
 --- This simple example watches your Hydra directory for changes, and when it sees a change, reloads your configs:
 ---
----     pathwatcher.new(os.getenv("HOME") .. "/.hydra/", hydra.reload):start()
+---     watcher.path.new(os.getenv("HOME") .. "/.hydra/", hydra.reload):start()
 ---
 --- This module is based primarily on code from the previous incarnation of Mjolnir by [Steven Degutis](https://github.com/sdegutis/).
 
-    ]],
---]=]
-}
-
-local mjolnir_mod_name = "mjolnir._asm.pathwatcher"
-local c_library = "internal"
-
--- integration with C functions ------------------------------------------
-
-if c_library then
-	for i,v in pairs(require(mjolnir_mod_name.."."..c_library)) do module[i] = v end
-end
+local module = require("mjolnir._asm.pathwatcher.internal")
 
 -- private variables and methods -----------------------------------------
 
@@ -44,9 +25,9 @@ end
 
 -- Public interface ------------------------------------------------------
 
---- mjolnir._asm.pathwatcher.new(path, fn) -> pathwatcher
+--- mjolnir._asm.pathwatcher.new(path, fn) -> watcher
 --- Constructor
---- Returns a new pathwatcher that can be started and stopped.  The function registered receives as it's argument, a table containing a list of the files which have changed since it was last invoked.
+--- Returns a new watcher.path that can be started and stopped.  The function registered receives as it's argument, a table containing a list of the files which have changed since it was last invoked.
 function module.new(path, fn)
   local _fn = wrap(fn)
 

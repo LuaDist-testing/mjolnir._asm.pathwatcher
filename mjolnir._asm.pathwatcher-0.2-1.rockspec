@@ -10,20 +10,20 @@ package = "mjolnir._asm.pathwatcher"
 --    changing the module's source code.
 --
 --    Note: the version must match the version in the filename.
-version = "0.1-1"
+version = "0.2-1"
 
 -- General metadata:
 
-local url = "github.com/asmagill/mjolnir_asm.pathwatcher"
+local url = "github.com/asmagill/mjolnir_asm.watcher"
 local desc = "Watch paths recursively for changes in Mjolnir"
 
 -- LuaDist source
 source = {
-  tag = "0.1-1",
+  tag = "0.2-1",
   url = "git://github.com/LuaDist-testing/mjolnir._asm.pathwatcher.git"
 }
 -- Original source
--- source = {url = "git://" .. url}
+-- source = {url = "git://" .. url, dir = "mjolnir_asm.watcher/pathwatcher"}
 -- description = {
 --   summary = desc,
 --   detailed = desc,

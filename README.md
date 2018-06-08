@@ -1,5 +1,5 @@
 mjolnir._asm.pathwatcher
-========================
+=========================
 
 Watch paths recursively for changes.
 
@@ -17,39 +17,39 @@ $ luarocks [--tree=mjolnir] install mjolnir._asm.pathwatcher
 
 ### Local Install
 ~~~bash
-$ git clone https://github.com/asmagill/mjolnir_asm.pathwatcher
-$ cd mjolnir_asm.pathwatcher
+$ git clone https://github.com/asmagill/mjolnir_asm.watcher
+$ cd mjolnir_asm.watcher/pathwatcher
 $ [PREFIX=/usr/local] make install
 ~~~
 
 ### Require
 
 ~~~lua
-pathwatcher = require("mjolnir._asm.pathwatcher")
+pw = require("mjolnir._asm.pathwatcher")
 ~~~
 
 ### Functions
 
 ~~~lua
-pathwatcher.new(path, fn) -> pathwatcher
+pw.new(path, fn) -> pathwatcher
 ~~~
 Returns a new pathwatcher that can be started and stopped.  The function registered receives as it's argument, a table containing a list of the files which have changed since it was last invoked.
 
 ~~~lua
-pathwatcher:start()
+pw:start()
 ~~~
 Registers pathwatcher's fn as a callback when pathwatcher's path or any descendent changes.
 
 ~~~lua
-pathwatcher:stop()
+pw:stop()
 ~~~
 Unregisters pathwatcher's fn so it won't be called again until the pathwatcher is restarted.
 
 ### Notes
 
-This release is a port of the Hydra pathwatcher code and seems to work as intended, but I do have some issues with it that I'd like to see addressed at some point.  At present, it reports on all changes within a directory and all subdirectories with no indication of what has actually changed beyond the file name -- I would like to be able to limit this to just the specified directory (no sub-dirs) and include some indicator of the type of change.  While it is true that some Lua code logic can be used to figure these out, I feel it should be built in to the module.
+This release is a port of the Hydra pathwatcher code and seems to work as intended, but I do have some issues with it that I'd like to see addressed at some point. At present, it reports on all changes within a directory and all subdirectories with no indication of what has actually changed (added/deleted/changed, etc.) beyond the file name -- I would like to be able to optionally limit this to just the specified directory (no sub-dirs) and include some indicator of the type of change. Maybe even a pattern matcher for just specific files or types of files.  While it is true that some Lua code logic can be used to figure these out, I feel it should be built in to the module.
 
-There is also a situation where if you stop a pathwatcher, and then re-start it without using new again, sometimes (not always) changes that occurred while it was stopped appear immediately... this should be made consistent, one way or the other.  Note, however, that stopping and then-restarting a pathwatcher in Hydra seems to crash my machine, so already this diverges some from the original.
+There is also a situation where if you stop a watcher, and then re-start it without using new again, sometimes (not always) changes that occurred while it was stopped appear immediately... this should be made consistent, one way or the other. Note, however, that stopping and then-restarting a pathwatcher in Hydra seems to crash on my machine, so already this diverges some from the original.
 
 However, it works [mostly] as it did in Hydra, which is this first version's goal.
 
